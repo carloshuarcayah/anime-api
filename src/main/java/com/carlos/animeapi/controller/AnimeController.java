@@ -3,9 +3,7 @@ package com.carlos.animeapi.controller;
 import com.carlos.animeapi.model.Anime;
 import com.carlos.animeapi.service.AnimeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +16,10 @@ public class AnimeController {
     @GetMapping
     public List<Anime> obtenerAnimes(){
         return animeService.listarTodo();
+    }
+
+    @PostMapping
+    public Anime crearAnime(@RequestBody Anime anime){
+        return  animeService.guardar(anime);
     }
 }
