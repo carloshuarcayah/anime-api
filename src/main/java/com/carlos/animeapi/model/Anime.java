@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class Anime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private long id;
+     private Long id;
 
     private String nombre;
 
