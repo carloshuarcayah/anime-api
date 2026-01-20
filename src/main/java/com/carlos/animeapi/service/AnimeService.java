@@ -15,4 +15,8 @@ public class AnimeService {
     public List<Anime> listarTodo(){
         return animeRepository.findAll();
     }
+
+    public Anime guardar(Anime anime){
+        return animeRepository.save(anime);
+    }
 }
