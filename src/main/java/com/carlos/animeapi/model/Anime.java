@@ -18,7 +18,8 @@ public class Anime {
     private int capitulos;
 
     //EN EMISION, FINALIZADO, CANCELADO
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    private EstadoAnime estado;
 
     @Column(name = "primera_emision")
     private LocalDate primeraEmision;
