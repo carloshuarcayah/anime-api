@@ -22,4 +22,9 @@ public class AnimeController {
     public Anime crearAnime(@RequestBody Anime anime){
         return  animeService.guardar(anime);
     }
+
+    @PutMapping("/{id}")
+    public Anime actualizarAnime(@RequestBody Anime anime) {
+        return animeService.guardar(anime);
+    }
 }
