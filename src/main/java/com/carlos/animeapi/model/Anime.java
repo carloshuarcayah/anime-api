@@ -30,4 +30,8 @@ public class Anime {
     @ManyToOne
     @JoinColumn(name = "estudio_id")
     private Estudio estudio;
+
+    @ManyToOne
+    @JoinColumn(name="categoria_id")
+    private Categoria categoria;
 }
