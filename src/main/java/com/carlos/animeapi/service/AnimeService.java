@@ -19,4 +19,17 @@ public class AnimeService {
     public Anime guardar(Anime anime){
         return animeRepository.save(anime);
     }
+
+    public Anime actualizar(Long id,Anime nuevosDatosAnime){
+        return animeRepository.findById(id).map(encontrado->{
+            if(nuevosDatosAnime.getNombre()!=null)         encontrado.setNombre(nuevosDatosAnime.getNombre());
+            if(nuevosDatosAnime.getCapitulos()>0)          encontrado.setCapitulos(nuevosDatosAnime.getCapitulos());
+            if(nuevosDatosAnime.getEstado()!=null)         encontrado.setEstado(nuevosDatosAnime.getEstado());
+            if(nuevosDatosAnime.getPrimeraEmision()!=null) encontrado.setPrimeraEmision(nuevosDatosAnime.getPrimeraEmision());
+            if(nuevosDatosAnime.getUltimaEmision()!=null)  encontrado.setUltimaEmision(nuevosDatosAnime.getUltimaEmision());
+            if(nuevosDatosAnime.getEstudio()!=null)        encontrado.setEstudio(nuevosDatosAnime.getEstudio());
+
+            return animeRepository.save(encontrado);
+        }).orElseThrow(()->new RuntimeException("No existe anime con ID: "+id));
+    }
 }

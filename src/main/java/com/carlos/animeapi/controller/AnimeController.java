@@ -24,7 +24,7 @@ public class AnimeController {
     }
 
     @PutMapping("/{id}")
-    public Anime actualizarAnime(@RequestBody Anime anime) {
-        return animeService.guardar(anime);
+    public Anime actualizarAnime(@PathVariable long id,@RequestBody Anime anime) {
+        return animeService.actualizar(id,anime);
     }
 }
