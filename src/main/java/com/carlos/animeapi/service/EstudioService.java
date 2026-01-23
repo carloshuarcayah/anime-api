@@ -30,4 +30,10 @@ public class EstudioService {
         }).orElseThrow(()->new RuntimeException("ID no encontrado: No existe un estudio con ID-"+id));
     }
 
+    public void eliminarEstudio(Long id){
+        Estudio estudio = estudioRepository.findById(id).orElseThrow(()->new RuntimeException("NO existe estudio con ID: "+id));
+        estudio.setActivo(false);
+        estudioRepository.save(estudio);
+    }
+
 }
