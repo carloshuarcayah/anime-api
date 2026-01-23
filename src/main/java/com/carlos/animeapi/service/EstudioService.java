@@ -1,0 +1,33 @@
+package com.carlos.animeapi.service;
+
+import com.carlos.animeapi.model.Estudio;
+import com.carlos.animeapi.repository.EstudioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class EstudioService {
+    @Autowired
+    EstudioRepository estudioRepository;
+
+    public List<Estudio> listarTodo(){
+        return estudioRepository.findAll();
+    }
+
+    public Estudio guardar(Estudio estudio){
+        return estudioRepository.save(estudio);
+    }
+
+    public Estudio actualizar(Long id, Estudio nuevosDatosEstudio){
+        return estudioRepository.findById(id).map(encontrado->{
+            if(nuevosDatosEstudio.getNombre()!=null)        encontrado.setNombre(nuevosDatosEstudio.getNombre());
+            if(nuevosDatosEstudio.getPais()!=null)          encontrado.setPais(nuevosDatosEstudio.getPais());
+            if(nuevosDatosEstudio.getFechaCreacion()!=null) encontrado.setFechaCreacion(nuevosDatosEstudio.getFechaCreacion());
+
+            return estudioRepository.save(encontrado);
+        }).orElseThrow(()->new RuntimeException("ID no encontrado: No existe un estudio con ID-"+id));
+    }
+
+}
