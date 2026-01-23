@@ -18,6 +18,11 @@ public class AnimeController {
         return animeService.listarTodo();
     }
 
+    @GetMapping("/{id}")
+    public Anime obtenerAnime(@PathVariable Long id){
+        return animeService.animePorId(id);
+    }
+
     @PostMapping
     public Anime crearAnime(@RequestBody Anime anime){
         return  animeService.guardar(anime);
