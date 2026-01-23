@@ -2,10 +2,12 @@ package com.carlos.animeapi.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "categorias")
 @Data
+@SQLRestriction("activo=true")
 public class Categoria {
 
     @Id

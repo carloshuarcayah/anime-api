@@ -2,12 +2,14 @@ package com.carlos.animeapi.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "animes")
 @Data
+@SQLRestriction("activo=true")
 public class Anime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
