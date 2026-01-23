@@ -34,4 +34,6 @@ public class Anime {
     @ManyToOne
     @JoinColumn(name="categoria_id")
     private Categoria categoria;
+
+    private boolean activo = true;
 }
