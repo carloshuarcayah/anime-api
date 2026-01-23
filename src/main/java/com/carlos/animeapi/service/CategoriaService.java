@@ -28,4 +28,10 @@ public class CategoriaService {
         }).orElseThrow(()->new RuntimeException("No existe anime con el id: "+id));
     }
 
+    public void eliminarCategoria(Long id){
+        Categoria encontrado = categoriaRepository.findById(id).orElseThrow(()-> new RuntimeException("No existe una categoria con ID: "+id));
+        encontrado.setActivo(false);
+        categoriaRepository.save(encontrado);
+    }
+
 }
