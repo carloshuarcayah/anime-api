@@ -26,5 +26,5 @@ public class Estudio {
     @Column(name = "fecha_creacion")
     private LocalDate fechaCreacion;
 
-    private boolean activo = true;
+    private Boolean activo = true;
 }

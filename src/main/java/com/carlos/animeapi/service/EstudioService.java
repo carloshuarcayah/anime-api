@@ -16,6 +16,10 @@ public class EstudioService {
         return estudioRepository.findAll();
     }
 
+    public Estudio estudioPorId(Long id){
+        return estudioRepository.findById(id).orElseThrow(()->new RuntimeException("No se encontro ningun estudio con ID: "+id));
+    }
+
     public Estudio guardar(Estudio estudio){
         return estudioRepository.save(estudio);
     }

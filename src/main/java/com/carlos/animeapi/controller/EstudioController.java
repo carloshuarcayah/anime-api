@@ -18,6 +18,11 @@ public class EstudioController {
         return estudioService.listarTodo();
     }
 
+    @GetMapping("/{id}")
+    public Estudio estudioPorId(@PathVariable Long id){
+        return estudioService.estudioPorId(id);
+    }
+
     @PostMapping
     public Estudio crearEstudio(@RequestBody Estudio estudio){
         return estudioService.guardar(estudio);
