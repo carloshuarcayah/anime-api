@@ -19,12 +19,17 @@ public class EstudioController {
     }
 
     @PostMapping
-    public Estudio crearEStudio(@RequestBody Estudio estudio){
+    public Estudio crearEstudio(@RequestBody Estudio estudio){
         return estudioService.guardar(estudio);
     }
 
     @PutMapping("/{id}")
     public Estudio actualizarDatos(@PathVariable Long id,@RequestBody Estudio estudio){
         return estudioService.actualizar(id,estudio);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminarEstudio(@PathVariable Long id){
+        estudioService.eliminarEstudio(id);
     }
 }
