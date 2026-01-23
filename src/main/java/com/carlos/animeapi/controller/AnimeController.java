@@ -27,4 +27,9 @@ public class AnimeController {
     public Anime actualizarAnime(@PathVariable long id,@RequestBody Anime anime) {
         return animeService.actualizar(id,anime);
     }
+
+    @DeleteMapping("/{id}")
+    public void eliminaAnime(@PathVariable Long id){
+        animeService.eliminar(id);
+    }
 }

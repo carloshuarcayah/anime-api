@@ -32,4 +32,10 @@ public class AnimeService {
             return animeRepository.save(encontrado);
         }).orElseThrow(()->new RuntimeException("No existe anime con ID: "+id));
     }
+
+    public void eliminar(Long id){
+        Anime encontrado = animeRepository.findById(id).orElseThrow(()->new RuntimeException("No existe un anime con ID: "+ id));
+        encontrado.setActivo(false);
+        animeRepository.save(encontrado);
+    }
 }
