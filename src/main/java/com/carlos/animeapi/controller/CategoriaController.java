@@ -18,6 +18,11 @@ public class CategoriaController {
         return categoriaService.listarTodo();
     }
 
+    @GetMapping("/{id}")
+    public Categoria obtenerCategoria(@PathVariable Long id){
+        return categoriaService.categoriaPorId(id);
+    }
+
     @PostMapping
     public Categoria crearCategoria(@RequestBody Categoria categoria){
         return categoriaService.crear(categoria);

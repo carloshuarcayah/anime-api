@@ -12,10 +12,11 @@ public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String nombre;
 
-    private boolean activo = true;
+    @Column(nullable = false)
+    private Boolean activo = true;
 }

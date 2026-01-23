@@ -16,6 +16,10 @@ public class CategoriaService {
         return categoriaRepository.findAll();
     }
 
+    public Categoria categoriaPorId(Long id){
+        return categoriaRepository.findById(id).orElseThrow(()->new RuntimeException("No se encontro ninguna categoria con ID: "+id));
+    }
+
     public Categoria crear(Categoria categoria){
         return categoriaRepository.save(categoria);
     }
