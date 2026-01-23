@@ -28,7 +28,7 @@ public class AnimeService {
             if(nuevosDatosAnime.getPrimeraEmision()!=null) encontrado.setPrimeraEmision(nuevosDatosAnime.getPrimeraEmision());
             if(nuevosDatosAnime.getUltimaEmision()!=null)  encontrado.setUltimaEmision(nuevosDatosAnime.getUltimaEmision());
             if(nuevosDatosAnime.getEstudio()!=null)        encontrado.setEstudio(nuevosDatosAnime.getEstudio());
-
+            if(nuevosDatosAnime.getCategoria()!=null)      encontrado.setCategoria(nuevosDatosAnime.getCategoria());
             return animeRepository.save(encontrado);
         }).orElseThrow(()->new RuntimeException("No existe anime con ID: "+id));
     }
