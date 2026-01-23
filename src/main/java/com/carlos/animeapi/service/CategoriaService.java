@@ -25,7 +25,7 @@ public class CategoriaService {
         return categoriaRepository.findById(id).map(encontrado->{
             if(nuevosDatosCategoria.getNombre()!=null) encontrado.setNombre(nuevosDatosCategoria.getNombre());
             return categoriaRepository.save(encontrado);
-        }).orElseThrow(()->new RuntimeException("No existe anime con el id: "+id));
+        }).orElseThrow(()->new RuntimeException("No existe categoria con el id: "+id));
     }
 
     public void eliminarCategoria(Long id){
