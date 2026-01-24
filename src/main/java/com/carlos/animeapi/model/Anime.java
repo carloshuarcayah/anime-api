@@ -30,7 +30,7 @@ public class Anime implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    @NotBlank(message = "ESte campo no puede estar vacio")
+    @NotBlank(message = "Este campo no puede estar vacio")
     private String nombre;
 
     private Integer capitulos;
@@ -56,7 +56,6 @@ public class Anime implements Serializable {
     private Categoria categoria;
 
     @Column(nullable = false)
-    @NotNull(message = "El estado es obligatorio")
     @Builder.Default
     private Boolean activo = true;
 }
