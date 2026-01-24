@@ -2,6 +2,7 @@ package com.carlos.animeapi.controller;
 
 import com.carlos.animeapi.model.Estudio;
 import com.carlos.animeapi.service.EstudioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,12 @@ public class EstudioController {
     }
 
     @PostMapping
-    public Estudio crearEstudio(@RequestBody Estudio estudio){
+    public Estudio crearEstudio(@RequestBody @Valid Estudio estudio){
         return estudioService.guardar(estudio);
     }
 
     @PutMapping("/{id}")
-    public Estudio actualizarDatos(@PathVariable Long id,@RequestBody Estudio estudio){
+    public Estudio actualizarDatos(@PathVariable Long id,@RequestBody @Valid Estudio estudio){
         return estudioService.actualizar(id,estudio);
     }
 

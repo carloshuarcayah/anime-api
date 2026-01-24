@@ -2,6 +2,7 @@ package com.carlos.animeapi.controller;
 
 import com.carlos.animeapi.model.Categoria;
 import com.carlos.animeapi.service.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,12 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public Categoria crearCategoria(@RequestBody Categoria categoria){
+    public Categoria crearCategoria(@RequestBody @Valid Categoria categoria){
         return categoriaService.crear(categoria);
     }
 
     @PutMapping("/{id}")
-    public Categoria actualizarCategoria(@PathVariable long id, @RequestBody Categoria categoria){
+    public Categoria actualizarCategoria(@PathVariable long id, @RequestBody @Valid Categoria categoria){
         return categoriaService.actualizar(id,categoria);
     }
 

@@ -2,6 +2,7 @@ package com.carlos.animeapi.controller;
 
 import com.carlos.animeapi.model.Anime;
 import com.carlos.animeapi.service.AnimeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,12 @@ public class AnimeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Anime crearAnime(@RequestBody Anime anime){
+    public Anime crearAnime(@RequestBody @Valid Anime anime){
         return  animeService.guardar(anime);
     }
 
     @PutMapping("/{id}")
-    public Anime actualizarAnime(@PathVariable long id,@RequestBody Anime anime) {
+    public Anime actualizarAnime(@PathVariable long id,@RequestBody @Valid Anime anime) {
         return animeService.actualizar(id,anime);
     }
 
