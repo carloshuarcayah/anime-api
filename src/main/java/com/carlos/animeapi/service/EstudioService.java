@@ -21,6 +21,10 @@ public class EstudioService {
     }
 
     public Estudio guardar(Estudio estudio){
+        if(estudio.getActivo()==null){
+            estudio.setActivo(true);
+        }
+
         return estudioRepository.save(estudio);
     }
 

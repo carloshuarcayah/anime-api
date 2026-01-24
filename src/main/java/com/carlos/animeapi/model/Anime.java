@@ -1,6 +1,8 @@
 package com.carlos.animeapi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,8 @@ public class Anime implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
 
+    @Column(nullable = false)
+    @NotBlank(message = "ESte campo no puede estar vacio")
     private String nombre;
 
     private Integer capitulos;
@@ -29,7 +33,8 @@ public class Anime implements Serializable {
     //EN EMISION, FINALIZADO, CANCELADO
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private EstadoAnime estado;
+    @Builder.Default
+    private EstadoAnime estado = EstadoAnime.EN_PRODUCCION;
 
     @Column(name = "primera_emision")
     private LocalDate primeraEmision;
@@ -46,5 +51,7 @@ public class Anime implements Serializable {
     private Categoria categoria;
 
     @Column(nullable = false)
+    @NotNull(message = "El estado es obligatorio")
+    @Builder.Default
     private Boolean activo = true;
 }

@@ -21,6 +21,10 @@ public class CategoriaService {
     }
 
     public Categoria crear(Categoria categoria){
+        if(categoria.getActivo()==null){
+            categoria.setActivo(true);
+        }
+
         return categoriaRepository.save(categoria);
     }
 
