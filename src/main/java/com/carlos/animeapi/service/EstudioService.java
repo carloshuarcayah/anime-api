@@ -1,5 +1,6 @@
 package com.carlos.animeapi.service;
 
+import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Estudio;
 import com.carlos.animeapi.repository.EstudioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class EstudioService {
     }
 
     public Estudio estudioPorId(Long id){
-        return estudioRepository.findById(id).orElseThrow(()->new RuntimeException("No se encontro ningun estudio con ID: "+id));
+        return estudioRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ningun estudio con ID: "+id));
     }
 
     public Estudio guardar(Estudio estudio){
@@ -35,11 +36,11 @@ public class EstudioService {
             if(nuevosDatosEstudio.getFechaCreacion()!=null) encontrado.setFechaCreacion(nuevosDatosEstudio.getFechaCreacion());
 
             return estudioRepository.save(encontrado);
-        }).orElseThrow(()->new RuntimeException("ID no encontrado: No existe un estudio con ID-"+id));
+        }).orElseThrow(()->new RecursoNoEncontradoException("ID no encontrado: No existe un estudio con ID-"+id));
     }
 
     public void eliminarEstudio(Long id){
-        Estudio estudio = estudioRepository.findById(id).orElseThrow(()->new RuntimeException("NO existe estudio con ID: "+id));
+        Estudio estudio = estudioRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("NO existe estudio con ID: "+id));
         estudio.setActivo(false);
         estudioRepository.save(estudio);
     }

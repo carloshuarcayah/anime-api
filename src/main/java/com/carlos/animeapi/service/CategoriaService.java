@@ -1,5 +1,6 @@
 package com.carlos.animeapi.service;
 
+import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Categoria;
 import com.carlos.animeapi.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class CategoriaService {
     }
 
     public Categoria categoriaPorId(Long id){
-        return categoriaRepository.findById(id).orElseThrow(()->new RuntimeException("No se encontro ninguna categoria con ID: "+id));
+        return categoriaRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ninguna categoria con ID: "+id));
     }
 
     public Categoria crear(Categoria categoria){
@@ -33,11 +34,11 @@ public class CategoriaService {
         return categoriaRepository.findById(id).map(encontrado->{
             if(nuevosDatosCategoria.getNombre()!=null) encontrado.setNombre(nuevosDatosCategoria.getNombre());
             return categoriaRepository.save(encontrado);
-        }).orElseThrow(()->new RuntimeException("No existe categoria con el id: "+id));
+        }).orElseThrow(()->new RecursoNoEncontradoException("No existe categoria con el id: "+id));
     }
 
     public void eliminarCategoria(Long id){
-        Categoria encontrado = categoriaRepository.findById(id).orElseThrow(()-> new RuntimeException("No existe una categoria con ID: "+id));
+        Categoria encontrado = categoriaRepository.findById(id).orElseThrow(()-> new RecursoNoEncontradoException("No existe una categoria con ID: "+id));
         encontrado.setActivo(false);
         categoriaRepository.save(encontrado);
     }

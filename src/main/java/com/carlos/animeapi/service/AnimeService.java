@@ -1,5 +1,6 @@
 package com.carlos.animeapi.service;
 
+import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Anime;
 import com.carlos.animeapi.model.EstadoAnime;
 import com.carlos.animeapi.model.Estudio;
@@ -27,7 +28,7 @@ public class AnimeService {
     }
 
     public Anime animePorId(Long id){
-        return animeRepository.findById(id).orElseThrow(()->new RuntimeException("Anime no encontrado, ID: "+id));
+        return animeRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("Anime no encontrado, ID: "+id));
     }
 
     public Anime guardar(Anime anime){
@@ -48,7 +49,7 @@ public class AnimeService {
             anime.setEstudio(estudioRepository.findById(
                     anime.getEstudio().getId()
                     ).orElseThrow(
-                            ()->new RuntimeException("No se ha encontrado un estudio con ID: "+anime.getEstudio().getId())
+                            ()->new RecursoNoEncontradoException("No se ha encontrado un estudio con ID: "+anime.getEstudio().getId())
                     )
             );
         }
@@ -57,7 +58,7 @@ public class AnimeService {
             anime.setCategoria(categoriaRepository.findById(
                     anime.getCategoria().getId()
                     ).orElseThrow(
-                    ()->new RuntimeException("No se ha encontrado una categoria con ID: "+anime.getCategoria().getId())
+                    ()->new RecursoNoEncontradoException("No se ha encontrado una categoria con ID: "+anime.getCategoria().getId())
                     )
             );
         }
@@ -92,11 +93,11 @@ public class AnimeService {
             actualizarDatos(nuevosDatosAnime,existente);
             validarCategoria_Estudio(existente);
             return animeRepository.save(existente);
-        }).orElseThrow(()->new RuntimeException("No existe anime con ID: "+id));
+        }).orElseThrow(()->new RecursoNoEncontradoException("No existe anime con ID: "+id));
     }
 
     public void eliminar(Long id){
-        Anime encontrado = animeRepository.findById(id).orElseThrow(()->new RuntimeException("No existe un anime con ID: "+ id));
+        Anime encontrado = animeRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("No existe un anime con ID: "+ id));
         encontrado.setActivo(false);
         animeRepository.save(encontrado);
     }
