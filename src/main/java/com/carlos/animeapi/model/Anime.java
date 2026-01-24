@@ -1,5 +1,7 @@
 package com.carlos.animeapi.model;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +14,8 @@ import org.hibernate.annotations.SQLRestriction;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import static io.swagger.v3.oas.annotations.media.Schema.AccessMode.READ_ONLY;
+
 @Entity
 @Table(name = "animes")
 @Data
@@ -22,7 +26,8 @@ import java.time.LocalDate;
 public class Anime implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private Long id;
+    @Schema(accessMode = READ_ONLY)//PARA OCULTAR este atributo en el Swagger
+    private Long id;
 
     @Column(nullable = false)
     @NotBlank(message = "ESte campo no puede estar vacio")
