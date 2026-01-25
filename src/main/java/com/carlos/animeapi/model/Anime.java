@@ -1,10 +1,8 @@
 package com.carlos.animeapi.model;
 
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +31,8 @@ public class Anime implements Serializable {
     @NotBlank(message = "Este campo no puede estar vacio")
     private String nombre;
 
+    @NotNull
+    @Min(value = 0)
     private Integer capitulos;
 
     //EN EMISION, FINALIZADO, CANCELADO
@@ -42,16 +42,20 @@ public class Anime implements Serializable {
     private EstadoAnime estado = EstadoAnime.EN_PRODUCCION;
 
     @Column(name = "primera_emision")
+    @PastOrPresent
     private LocalDate primeraEmision;
 
     @Column(name = "ultima_emision")
+    @PastOrPresent
     private LocalDate ultimaEmision;
 
     @ManyToOne
+    @NotNull(message = "El estudio no puede ser null")
     @JoinColumn(name = "estudio_id")
     private Estudio estudio;
 
     @ManyToOne
+    @NotNull(message = "La categoria no puede ser null")
     @JoinColumn(name="categoria_id")
     private Categoria categoria;
 
