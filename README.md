@@ -17,15 +17,15 @@ Esta es una API RESTful diseñada para la gestión integral de animes, sus categ
 
 # Estructura del Proyecto
 ```text
-└── src
-     ├── main
-     └── java/...
-          ├── controller/                # Gestión de Endpoints y validación de entrada (@Valid).
-          ├── service/                   # Capa de lógica de negocio y validaciones.
-          ├── repository/                # Interfaz de acceso a la base de datos (JPA).
-          ├── model/                     # Entidades del dominio y Enums.
-          ├── exception/                 # Manejador global de excepciones personalizadas.
-          └── AnimeApiApplication.java   # Punto de entrada de la aplicación.
+   └── src
+        ├── main
+              └── java/com/...
+                   ├── controller/   # Gestión de Endpoints y validación de entrada (@Valid).
+                   ├── service/      # Capa de lógica de negocio y validaciones.
+                   ├── repository/   # Interfaz de acceso a la base de datos (JPA).
+                   ├── model/        # Entidades del dominio y Enums.
+                   ├── exception/    # Manejador global de excepciones personalizadas.
+                   └── AnimeApiApplication.java  # Punto de entrada de la aplicación.
 ```
 
 # Instalación
@@ -36,9 +36,10 @@ Esta es una API RESTful diseñada para la gestión integral de animes, sus categ
 
 ## Cómo ejecutar
 1. **Clonar el repositorio:**
-   ```bash
-   git clone [https://github.com/carloshuarcayah/anime-api.git](https://github.com/carloshuarcayah/anime-api.git)
-   
+```bash
+  git clone [https://github.com/carloshuarcayah/anime-api.git](https://github.com/carloshuarcayah/anime-api.git)
+```
+
 2. **Configurar la base de datos:**
    * Crea una base de datos en PostgreSQL y actualiza el archivo `src/main/resources/application.properties` con tus credenciales:
    * Renombra el archivo `src/main/resources/application.properties.example` a `application.properties`.
@@ -50,8 +51,9 @@ spring.datasource.password=TU_CONTRASEÑA
 ```
 
 3. **Ejecutar la aplicación:**
-   ```bash
-      mvn spring-boot:run
+```bash
+   mvn spring-boot:run
+```
 
 # Swagger
 Una vez iniciada la aplicación, puedes acceder a la documentación y probar la API en:
