@@ -30,27 +30,9 @@ Esta es una API RESTful diseñada para la gestión integral de animes, sus categ
 
 # Instalación
 ## Prerrequisitos
-1. JDK 21 o sueprior
-2. Maven instalado.
-3. PostgreSQL
-## Como ejecutar
-1. Clonar el repositorio: git clone https://github.com/carloshuarcayah/anime-api.git
-2. Configurar la base de datos: Crea una base de datos en PostgreSQL y actualiza el archivo src/main/resources/application.properties
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/TU_BASE_DE_DATOS
-spring.datasource.username=TU_USUARIO
-spring.datasource.password=TU_CONTRASEÑA
-```
-3. **Ejecutar la aplicacion:** 
-```bash
-mvn spring-boot:run
-```
-
-#Instalación
-## Prerrequisitos
 1. **JDK 21** o superior.
-2. **Maven** instalado correctamente.
-3. **PostgreSQL** en ejecución.
+2. **Maven** instalado.
+3. **PostgreSQL**.
 
 ## Cómo ejecutar
 1. **Clonar el repositorio:**
@@ -59,13 +41,15 @@ mvn spring-boot:run
    ```
    
 2. **Configurar la base de datos:**
-Crea una base de datos en PostgreSQL y actualiza el archivo `src/main/resources/application.properties` con tus credenciales:
-
+   * Crea una base de datos en PostgreSQL y actualiza el archivo `src/main/resources/application.properties` con tus credenciales:
+   * Renombra el archivo `src/main/resources/application.properties.example` a `application.properties`.
+   * En `application.properties` y actualiza tus credenciales:
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/TU_BASE_DE_DATOS
 spring.datasource.username=TU_USUARIO
 spring.datasource.password=TU_CONTRASEÑA
 ```
+
 3. **Ejecutar la aplicación:**
 ```bash
 mvn spring-boot:run
