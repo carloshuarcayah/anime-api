@@ -1,9 +1,9 @@
 spring.application.name=anime-api
 
 #Conexion a la base de datos
-spring.datasource.url=jdbc:postgresql://localhost:5432/anime_db
-spring.datasource.username=postgres
-spring.datasource.password=admin
+spring.datasource.url=jdbc:postgresql://localhost:5432/TU_BASE_DE_DATOS
+spring.datasource.username=TU_USUARIO
+spring.datasource.password=TU_CONTRASEÑA
 
 #Actualizacion de tablas
 spring.jpa.hibernate.ddl-auto=update
