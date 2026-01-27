@@ -4,6 +4,9 @@ import com.carlos.animeapi.model.Estudio;
 import com.carlos.animeapi.service.EstudioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +18,8 @@ public class EstudioController {
     EstudioService estudioService;
 
     @GetMapping
-    public List<Estudio> listarTodo(){
-        return estudioService.listarTodo();
+    public ResponseEntity<Page<Estudio>> listarTodo(Pageable pageable){
+        return ResponseEntity.ok(estudioService.listarTodo(pageable));
     }
 
     @GetMapping("/{id}")

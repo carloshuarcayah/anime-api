@@ -4,6 +4,9 @@ import com.carlos.animeapi.model.Categoria;
 import com.carlos.animeapi.service.CategoriaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +18,8 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping
-    public List<Categoria> obtenerCategorias(){
-        return categoriaService.listarTodo();
+    public ResponseEntity<Page<Categoria>> obtenerCategorias(Pageable pageable){
+        return ResponseEntity.ok(categoriaService.listarTodo(pageable));
     }
 
     @GetMapping("/{id}")

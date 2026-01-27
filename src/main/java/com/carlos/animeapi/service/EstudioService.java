@@ -4,6 +4,8 @@ import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Estudio;
 import com.carlos.animeapi.repository.EstudioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +15,8 @@ public class EstudioService {
     @Autowired
     EstudioRepository estudioRepository;
 
-    public List<Estudio> listarTodo(){
-        return estudioRepository.findAll();
+    public Page<Estudio> listarTodo(Pageable pageable){
+        return estudioRepository.findAll(pageable);
     }
 
     public Estudio estudioPorId(Long id){

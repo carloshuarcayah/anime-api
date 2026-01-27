@@ -4,7 +4,10 @@ import com.carlos.animeapi.model.Anime;
 import com.carlos.animeapi.service.AnimeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,13 +19,13 @@ public class AnimeController {
     private AnimeService animeService;
 
     @GetMapping
-    public List<Anime> obtenerAnimes(){
-        return animeService.listarTodo();
+    public ResponseEntity<Page<Anime>> listarAnimes(Pageable pageable){
+        return ResponseEntity.ok(animeService.listarTodo(pageable));
     }
 
     @GetMapping("/{id}")
-    public Anime obtenerAnime(@PathVariable Long id){
-        return animeService.animePorId(id);
+    public ResponseEntity<Anime> obtenerAnime(@PathVariable Long id){
+        return ResponseEntity.ok(animeService.animePorId(id));
     }
 
     @PostMapping

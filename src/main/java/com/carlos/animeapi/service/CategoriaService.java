@@ -4,6 +4,8 @@ import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Categoria;
 import com.carlos.animeapi.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +15,8 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public List<Categoria> listarTodo(){
-        return categoriaRepository.findAll();
+    public Page<Categoria> listarTodo(Pageable pageable){
+        return categoriaRepository.findAll(pageable);
     }
 
     public Categoria categoriaPorId(Long id){

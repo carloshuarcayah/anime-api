@@ -7,7 +7,11 @@ import com.carlos.animeapi.model.Estudio;
 import com.carlos.animeapi.repository.AnimeRepository;
 import com.carlos.animeapi.repository.CategoriaRepository;
 import com.carlos.animeapi.repository.EstudioRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,8 +27,8 @@ public class AnimeService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public List<Anime> listarTodo(){
-        return animeRepository.findAll();
+    public Page<Anime> listarTodo(Pageable pageable){
+        return animeRepository.findAll(pageable);
     }
 
     public Anime animePorId(Long id){
