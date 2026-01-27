@@ -37,6 +37,7 @@ public class ManejadorGlobalExcepciones {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> manejarExcepcionesGenerales(Exception ex){
         Map<String, String> respuesta = new HashMap<>();
+        respuesta.put("tipo_excepcion",ex.getClass().getSimpleName());
         respuesta.put("mensaje","Error inesperado: "+ex.getMessage());
         return new ResponseEntity<>(respuesta,HttpStatus.INTERNAL_SERVER_ERROR);
     }
