@@ -27,6 +27,11 @@ public class EstudioController {
         return estudioService.estudioPorId(id);
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<Page<Estudio>> buscarEstudio(@RequestParam String nombre, Pageable pageable){
+        return ResponseEntity.ok(estudioService.buscarEstudio(nombre, pageable));
+    }
+
     @PostMapping
     public Estudio crearEstudio(@RequestBody @Valid Estudio estudio){
         return estudioService.guardar(estudio);

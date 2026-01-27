@@ -19,6 +19,10 @@ public class CategoriaService {
         return categoriaRepository.findAll(pageable);
     }
 
+    public Page<Categoria> buscarCategoria(String nombre, Pageable pageable){
+        return categoriaRepository.findCategoriaByNombreContainingIgnoreCase(nombre, pageable);
+    }
+
     public Categoria categoriaPorId(Long id){
         return categoriaRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ninguna categoria con ID: "+id));
     }

@@ -35,6 +35,10 @@ public class AnimeService {
         return animeRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("Anime no encontrado, ID: "+id));
     }
 
+    public Page<Anime> buscarPorNombre(String nombre, Pageable pageable){
+        return animeRepository.findAnimeByNombreContaining(nombre, pageable);
+    }
+
     public Anime guardar(Anime anime){
 //
         if(anime.getActivo()==null){
