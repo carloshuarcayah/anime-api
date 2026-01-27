@@ -36,7 +36,7 @@ public class AnimeService {
     }
 
     public Page<Anime> buscarPorNombre(String nombre, Pageable pageable){
-        return animeRepository.findAnimeByNombreContaining(nombre, pageable);
+        return animeRepository.findCategoriaByNombreContainingIgnoreCase(nombre, pageable);
     }
 
     public Anime guardar(Anime anime){
