@@ -27,6 +27,10 @@ public class AnimeController {
     public ResponseEntity<Anime> obtenerAnime(@PathVariable Long id){
         return ResponseEntity.ok(animeService.animePorId(id));
     }
+    @GetMapping("/buscar")
+    public ResponseEntity<Page<Anime>> buscarAnime(@RequestParam String nombre, Pageable pageable){
+        return ResponseEntity.ok(animeService.buscarPorNombre(nombre, pageable));
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

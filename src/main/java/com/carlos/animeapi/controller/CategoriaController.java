@@ -27,6 +27,11 @@ public class CategoriaController {
         return categoriaService.categoriaPorId(id);
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<Page<Categoria>> buscarCategoria(@RequestParam String nombre, Pageable pageable){
+        return ResponseEntity.ok(categoriaService.buscarCategoria(nombre, pageable));
+    }
+
     @PostMapping
     public Categoria crearCategoria(@RequestBody @Valid Categoria categoria){
         return categoriaService.crear(categoria);

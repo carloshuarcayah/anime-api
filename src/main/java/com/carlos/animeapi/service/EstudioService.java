@@ -19,6 +19,10 @@ public class EstudioService {
         return estudioRepository.findAll(pageable);
     }
 
+    public Page<Estudio> buscarEstudio(String nombre, Pageable pageable){
+        return estudioRepository.findEstudioByNombreContainingIgnoreCase(nombre,pageable);
+    }
+
     public Estudio estudioPorId(Long id){
         return estudioRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ningun estudio con ID: "+id));
     }
