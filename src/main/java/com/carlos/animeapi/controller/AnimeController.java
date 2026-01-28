@@ -35,13 +35,13 @@ public class AnimeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AnimeDTO crearAnime(@RequestBody @Valid Anime anime){
-        return  animeService.guardar(anime);
+    public ResponseEntity<AnimeDTO> crearAnime(@RequestBody @Valid Anime anime){
+        return  ResponseEntity.ok(animeService.guardar(anime));
     }
 
     @PutMapping("/{id}")
-    public AnimeDTO actualizarAnime(@PathVariable long id,@RequestBody Anime anime) {
-        return animeService.actualizar(id,anime);
+    public ResponseEntity<AnimeDTO> actualizarAnime(@PathVariable long id,@RequestBody Anime anime) {
+        return ResponseEntity.ok(animeService.actualizar(id,anime));
     }
 
     @DeleteMapping("/{id}")

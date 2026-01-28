@@ -24,8 +24,8 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public CategoriaDTO obtenerCategoria(@PathVariable Long id){
-        return categoriaService.categoriaPorId(id);
+    public ResponseEntity<CategoriaDTO> obtenerCategoria(@PathVariable Long id){
+        return ResponseEntity.ok(categoriaService.categoriaPorId(id));
     }
 
     @GetMapping("/buscar")
@@ -34,13 +34,13 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public CategoriaDTO crearCategoria(@RequestBody @Valid Categoria categoria){
-        return categoriaService.crear(categoria);
+    public ResponseEntity<CategoriaDTO> crearCategoria(@RequestBody @Valid Categoria categoria){
+        return ResponseEntity.ok(categoriaService.crear(categoria));
     }
 
     @PutMapping("/{id}")
-    public CategoriaDTO actualizarCategoria(@PathVariable long id, @RequestBody @Valid Categoria categoria){
-        return categoriaService.actualizar(id,categoria);
+    public ResponseEntity<CategoriaDTO> actualizarCategoria(@PathVariable long id, @RequestBody @Valid Categoria categoria){
+        return ResponseEntity.ok(categoriaService.actualizar(id,categoria));
     }
 
     @DeleteMapping("/{id}")

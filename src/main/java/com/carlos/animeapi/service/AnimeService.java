@@ -33,7 +33,7 @@ public class AnimeService {
         return animeRepository.findAll(pageable).map(this::aDTO);
     }
 
-    private AnimeDTO aDTO(Anime anime){
+    public AnimeDTO aDTO(Anime anime){
         return new AnimeDTO(anime.getId(),
                 anime.getNombre(),
                 anime.getCapitulos(),
