@@ -1,5 +1,6 @@
 package com.carlos.animeapi.controller;
 
+import com.carlos.animeapi.dto.EstudioDTO;
 import com.carlos.animeapi.model.Estudio;
 import com.carlos.animeapi.service.EstudioService;
 import jakarta.validation.Valid;
@@ -18,27 +19,27 @@ public class EstudioController {
     EstudioService estudioService;
 
     @GetMapping
-    public ResponseEntity<Page<Estudio>> listarTodo(Pageable pageable){
+    public ResponseEntity<Page<EstudioDTO>> listarTodo(Pageable pageable){
         return ResponseEntity.ok(estudioService.listarTodo(pageable));
     }
 
     @GetMapping("/{id}")
-    public Estudio estudioPorId(@PathVariable Long id){
+    public EstudioDTO estudioPorId(@PathVariable Long id){
         return estudioService.estudioPorId(id);
     }
 
     @GetMapping("/buscar")
-    public ResponseEntity<Page<Estudio>> buscarEstudio(@RequestParam String nombre, Pageable pageable){
+    public ResponseEntity<Page<EstudioDTO>> buscarEstudio(@RequestParam String nombre, Pageable pageable){
         return ResponseEntity.ok(estudioService.buscarEstudio(nombre, pageable));
     }
 
     @PostMapping
-    public Estudio crearEstudio(@RequestBody @Valid Estudio estudio){
+    public EstudioDTO crearEstudio(@RequestBody @Valid Estudio estudio){
         return estudioService.guardar(estudio);
     }
 
     @PutMapping("/{id}")
-    public Estudio actualizarDatos(@PathVariable Long id,@RequestBody @Valid Estudio estudio){
+    public EstudioDTO actualizarDatos(@PathVariable Long id,@RequestBody @Valid Estudio estudio){
         return estudioService.actualizar(id,estudio);
     }
 

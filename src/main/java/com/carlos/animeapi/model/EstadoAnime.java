@@ -1,5 +1,10 @@
 package com.carlos.animeapi.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum EstadoAnime {
     EN_PRODUCCION("En producción"),
     EN_EMISION("En emision"),
@@ -7,8 +12,4 @@ public enum EstadoAnime {
     CANCELADO("Cancelado");
 
     private final String estado;
-
-    EstadoAnime(String descripcion){
-        this.estado = descripcion;
-    }
 }

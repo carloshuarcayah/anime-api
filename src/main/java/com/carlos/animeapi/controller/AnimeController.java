@@ -1,5 +1,6 @@
 package com.carlos.animeapi.controller;
 
+import com.carlos.animeapi.dto.AnimeDTO;
 import com.carlos.animeapi.model.Anime;
 import com.carlos.animeapi.service.AnimeService;
 import jakarta.validation.Valid;
@@ -19,27 +20,27 @@ public class AnimeController {
     private AnimeService animeService;
 
     @GetMapping
-    public ResponseEntity<Page<Anime>> listarAnimes(Pageable pageable){
+    public ResponseEntity<Page<AnimeDTO>> listarAnimes(Pageable pageable){
         return ResponseEntity.ok(animeService.listarTodo(pageable));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Anime> obtenerAnime(@PathVariable Long id){
-        return ResponseEntity.ok(animeService.animePorId(id));
+    public ResponseEntity<AnimeDTO> obtenerAnime(@PathVariable Long id){
+        return ResponseEntity.ok(animeService.buscarPorId(id));
     }
     @GetMapping("/buscar")
-    public ResponseEntity<Page<Anime>> buscarAnime(@RequestParam String nombre, Pageable pageable){
+    public ResponseEntity<Page<AnimeDTO>> buscarAnime(@RequestParam String nombre, Pageable pageable){
         return ResponseEntity.ok(animeService.buscarPorNombre(nombre, pageable));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Anime crearAnime(@RequestBody @Valid Anime anime){
+    public AnimeDTO crearAnime(@RequestBody @Valid Anime anime){
         return  animeService.guardar(anime);
     }
 
     @PutMapping("/{id}")
-    public Anime actualizarAnime(@PathVariable long id,@RequestBody @Valid Anime anime) {
+    public AnimeDTO actualizarAnime(@PathVariable long id,@RequestBody Anime anime) {
         return animeService.actualizar(id,anime);
     }
 

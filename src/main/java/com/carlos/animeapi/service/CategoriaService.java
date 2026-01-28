@@ -1,5 +1,6 @@
 package com.carlos.animeapi.service;
 
+import com.carlos.animeapi.dto.CategoriaDTO;
 import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Categoria;
 import com.carlos.animeapi.repository.CategoriaRepository;
@@ -15,31 +16,40 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public Page<Categoria> listarTodo(Pageable pageable){
-        return categoriaRepository.findAll(pageable);
+
+    private CategoriaDTO aDTO(Categoria categoria){
+        return new CategoriaDTO(
+                categoria.getId(),
+                categoria.getNombre());
     }
 
-    public Page<Categoria> buscarCategoria(String nombre, Pageable pageable){
-        return categoriaRepository.findCategoriaByNombreContainingIgnoreCase(nombre, pageable);
+    public Page<CategoriaDTO> listarTodo(Pageable pageable){
+        return categoriaRepository.findAll(pageable).map(this::aDTO);
     }
 
-    public Categoria categoriaPorId(Long id){
-        return categoriaRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ninguna categoria con ID: "+id));
+    public Page<CategoriaDTO> buscarPorNombre(String nombre, Pageable pageable){
+        return categoriaRepository.findCategoriaByNombreContainingIgnoreCase(nombre, pageable).map(this::aDTO);
     }
 
-    public Categoria crear(Categoria categoria){
+
+    public CategoriaDTO categoriaPorId(Long id){
+        return categoriaRepository.findById(id).map(this::aDTO).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ninguna categoria con ID: "+id));
+    }
+
+    public CategoriaDTO crear(Categoria categoria){
         if(categoria.getActivo()==null){
             categoria.setActivo(true);
         }
-
-        return categoriaRepository.save(categoria);
+        categoriaRepository.save(categoria);
+        return aDTO(categoria);
     }
 
     //Con el id y los datos nuevos recibidos, buscamos si existe el id y actualizamos los datos enviados
-    public Categoria actualizar(Long id,Categoria nuevosDatosCategoria){
+    public CategoriaDTO actualizar(Long id,Categoria nuevosDatosCategoria){
         return categoriaRepository.findById(id).map(encontrado->{
             if(nuevosDatosCategoria.getNombre()!=null) encontrado.setNombre(nuevosDatosCategoria.getNombre());
-            return categoriaRepository.save(encontrado);
+            categoriaRepository.save(encontrado);
+            return aDTO(encontrado);
         }).orElseThrow(()->new RecursoNoEncontradoException("No existe categoria con el id: "+id));
     }
 

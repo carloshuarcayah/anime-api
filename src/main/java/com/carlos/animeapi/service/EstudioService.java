@@ -1,5 +1,6 @@
 package com.carlos.animeapi.service;
 
+import com.carlos.animeapi.dto.EstudioDTO;
 import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Estudio;
 import com.carlos.animeapi.repository.EstudioRepository;
@@ -15,33 +16,46 @@ public class EstudioService {
     @Autowired
     EstudioRepository estudioRepository;
 
-    public Page<Estudio> listarTodo(Pageable pageable){
-        return estudioRepository.findAll(pageable);
+    private EstudioDTO aDTO(Estudio estudio){
+        return new EstudioDTO(
+                estudio.getId(),
+                estudio.getNombre(),
+                estudio.getPais(),
+                estudio.getFechaCreacion()
+        );
     }
 
-    public Page<Estudio> buscarEstudio(String nombre, Pageable pageable){
-        return estudioRepository.findEstudioByNombreContainingIgnoreCase(nombre,pageable);
+    public Page<EstudioDTO> listarTodo(Pageable pageable){
+        return estudioRepository.findAll(pageable).map(this::aDTO);
     }
 
-    public Estudio estudioPorId(Long id){
-        return estudioRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ningun estudio con ID: "+id));
+    public Page<EstudioDTO> buscarEstudio(String nombre, Pageable pageable){
+        return estudioRepository.findEstudioByNombreContainingIgnoreCase(nombre,pageable).map(this::aDTO);
     }
 
-    public Estudio guardar(Estudio estudio){
+    public EstudioDTO estudioPorId(Long id){
+        return estudioRepository.findById(id).map(this::aDTO).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ningun estudio con ID: "+id));
+    }
+
+    public EstudioDTO guardar(Estudio estudio){
         if(estudio.getActivo()==null){
             estudio.setActivo(true);
         }
 
-        return estudioRepository.save(estudio);
+        estudioRepository.save(estudio);
+
+        return aDTO(estudio);
     }
 
-    public Estudio actualizar(Long id, Estudio nuevosDatosEstudio){
+    public EstudioDTO actualizar(Long id, Estudio nuevosDatosEstudio){
         return estudioRepository.findById(id).map(encontrado->{
             if(nuevosDatosEstudio.getNombre()!=null)        encontrado.setNombre(nuevosDatosEstudio.getNombre());
             if(nuevosDatosEstudio.getPais()!=null)          encontrado.setPais(nuevosDatosEstudio.getPais());
             if(nuevosDatosEstudio.getFechaCreacion()!=null) encontrado.setFechaCreacion(nuevosDatosEstudio.getFechaCreacion());
 
-            return estudioRepository.save(encontrado);
+            estudioRepository.save(encontrado);
+            return aDTO(encontrado);
+
         }).orElseThrow(()->new RecursoNoEncontradoException("ID no encontrado: No existe un estudio con ID-"+id));
     }
 

@@ -1,5 +1,6 @@
 package com.carlos.animeapi.service;
 
+import com.carlos.animeapi.dto.AnimeDTO;
 import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Anime;
 import com.carlos.animeapi.model.EstadoAnime;
@@ -27,19 +28,31 @@ public class AnimeService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public Page<Anime> listarTodo(Pageable pageable){
-        return animeRepository.findAll(pageable);
+
+    public Page<AnimeDTO> listarTodo(Pageable pageable){
+        return animeRepository.findAll(pageable).map(this::aDTO);
     }
 
-    public Anime animePorId(Long id){
-        return animeRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("Anime no encontrado, ID: "+id));
+    private AnimeDTO aDTO(Anime anime){
+        return new AnimeDTO(anime.getId(),
+                anime.getNombre(),
+                anime.getCapitulos(),
+                anime.getEstado().getEstado(),
+                anime.getCategoria().getNombre(),
+                anime.getEstudio().getNombre(),
+                anime.getPrimeraEmision(),
+                anime.getUltimaEmision());
     }
 
-    public Page<Anime> buscarPorNombre(String nombre, Pageable pageable){
-        return animeRepository.findAnimeByNombreContainingIgnoreCase(nombre, pageable);
+    public AnimeDTO buscarPorId(Long id){
+        return animeRepository.findById(id).map(this::aDTO).orElseThrow(()->new RecursoNoEncontradoException("Anime no encontrado, ID: "+id));
     }
 
-    public Anime guardar(Anime anime){
+    public Page<AnimeDTO> buscarPorNombre(String nombre, Pageable pageable){
+        return animeRepository.findAnimeByNombreContainingIgnoreCase(nombre, pageable).map(this::aDTO);
+    }
+
+    public AnimeDTO guardar(Anime anime){
 //
         if(anime.getActivo()==null){
             anime.setActivo(true);
@@ -49,7 +62,9 @@ public class AnimeService {
 
         validarCategoria_Estudio(anime);
 
-        return animeRepository.save(anime);
+        Anime nuevo = animeRepository.save(anime);
+
+        return aDTO(nuevo);
     }
 
     private void validarCategoria_Estudio(Anime anime){
@@ -96,11 +111,12 @@ public class AnimeService {
             actual.setCategoria(nuevo.getCategoria());
     }
 
-    public Anime actualizar(Long id,Anime nuevosDatosAnime){
+    public AnimeDTO actualizar(Long id,Anime nuevosDatosAnime){
         return animeRepository.findById(id).map(existente->{
             actualizarDatos(nuevosDatosAnime,existente);
             validarCategoria_Estudio(existente);
-            return animeRepository.save(existente);
+            Anime actualizado = animeRepository.save(existente);
+            return aDTO(actualizado);
         }).orElseThrow(()->new RecursoNoEncontradoException("No existe anime con ID: "+id));
     }
 
