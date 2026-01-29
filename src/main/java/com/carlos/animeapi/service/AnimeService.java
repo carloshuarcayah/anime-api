@@ -9,6 +9,7 @@ import com.carlos.animeapi.repository.AnimeRepository;
 import com.carlos.animeapi.repository.CategoriaRepository;
 import com.carlos.animeapi.repository.EstudioRepository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,15 +19,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AnimeService {
-    @Autowired
-    private AnimeRepository animeRepository;
 
-    @Autowired
-    private EstudioRepository estudioRepository;
+    private final AnimeRepository animeRepository;
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+    private final EstudioRepository estudioRepository;
+
+    private final CategoriaRepository categoriaRepository;
 
 
     public Page<AnimeDTO> listarTodo(Pageable pageable){
