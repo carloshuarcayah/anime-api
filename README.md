@@ -37,7 +37,7 @@ Esta es una API RESTful diseñada para la gestión integral de animes, sus categ
 ## Cómo ejecutar
 1. **Clonar el repositorio:**
 ```bash
-  git clone [https://github.com/carloshuarcayah/anime-api.git](https://github.com/carloshuarcayah/anime-api.git)
+  git clone https://github.com/carloshuarcayah/anime-api.git
 ```
 
 2. **Configurar la base de datos:**
@@ -54,6 +54,7 @@ spring.datasource.password=TU_CONTRASEÑA
 ```bash
    mvn spring-boot:run
 ```
+La aplicación estará disponible en `http://localhost:8080`
 
 # Swagger
 Una vez iniciada la aplicación, puedes acceder a la documentación y probar la API en:
