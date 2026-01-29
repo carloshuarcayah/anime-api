@@ -17,33 +17,35 @@ Esta es una API RESTful diseñada para la gestión integral de animes, sus categ
 
 # Estructura del Proyecto
 ```text
-   └── src
-        ├── main
-              └── java/com/...
-                   ├── controller/   # Gestión de Endpoints y validación de entrada (@Valid).
-                   ├── service/      # Capa de lógica de negocio y validaciones.
-                   ├── repository/   # Interfaz de acceso a la base de datos (JPA).
-                   ├── model/        # Entidades del dominio y Enums.
-                   ├── exception/    # Manejador global de excepciones personalizadas.
-                   └── AnimeApiApplication.java  # Punto de entrada de la aplicación.
+└── src
+    └── main
+        └── java/com/...
+            ├── controller/   # Gestión de Endpoints y validación de entrada (@Valid).
+            ├── service/      # Capa de lógica de negocio y validaciones.
+            ├── repository/   # Interfaz de acceso a la base de datos (JPA).
+            ├── model/        # Entidades del dominio y Enums.
+            ├── exception/    # Manejador de excepciones personalizadas.
+            └── AnimeApiApplication.java
 ```
 
 # Instalación
+
 ## Prerrequisitos
-1. **JDK 21** o superior.
-2. **Maven** instalado.
-3. **PostgreSQL**.
+1. **JDK 21** o superior
+2. **Maven** instalado
+3. **PostgreSQL** instalado y corriendo
 
 ## Cómo ejecutar
+
 1. **Clonar el repositorio:**
 ```bash
-  git clone https://github.com/carloshuarcayah/anime-api.git
+git clone https://github.com/carloshuarcayah/anime-api.git
 ```
 
 2. **Configurar la base de datos:**
-   * Crea una base de datos en PostgreSQL y actualiza el archivo `src/main/resources/application.properties` con tus credenciales:
-   * Renombra el archivo `src/main/resources/application.properties.example` a `application.properties`.
-   * En `application.properties` y actualiza tus credenciales:
+   * Crea una base de datos en PostgreSQL
+   * Renombra el archivo `src/main/resources/application.properties.example` a `application.properties`
+   * Actualiza las credenciales en `application.properties`:
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/TU_BASE_DE_DATOS
 spring.datasource.username=TU_USUARIO
@@ -51,14 +53,23 @@ spring.datasource.password=TU_CONTRASEÑA
 ```
 
 3. **Ejecutar la aplicación:**
+
+   **Opción 1: Desde un IDE**
+   * Abre el proyecto en tu IDE (IntelliJ IDEA, Eclipse, VS Code, etc.)
+   * Haz clic en el botón de ejecutar
+
+   **Opcion 2: Desde la terminal**
 ```bash
    mvn spring-boot:run
 ```
+
 La aplicación estará disponible en `http://localhost:8080`
 
 # Swagger
 Una vez iniciada la aplicación, puedes acceder a la documentación y probar la API en:
+
 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ---
-**Autor:** Yo(Carlos) - (Estudiante) Desarrollador Backend en formación.
+
+**Autor:** Yo -  (Estudiante) Desarrollador Backend en formación
