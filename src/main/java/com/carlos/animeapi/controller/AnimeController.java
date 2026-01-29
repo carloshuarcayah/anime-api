@@ -40,7 +40,7 @@ public class AnimeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AnimeDTO> actualizarAnime(@PathVariable long id,@RequestBody Anime anime) {
+    public ResponseEntity<AnimeDTO> actualizarAnime(@PathVariable long id,@RequestBody @Valid Anime anime) {
         return ResponseEntity.ok(animeService.actualizar(id,anime));
     }
 

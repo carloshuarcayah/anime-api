@@ -87,33 +87,20 @@ public class AnimeService {
         }
     }
 
-    //SE PASAN LOS NUEVOS QUE SE QUIEREN REEMPLAZAR EN UN ANIME
-    public void actualizarDatos (Anime nuevo, Anime actual){
-        if(nuevo.getNombre()!=null)
+//    //SE PASAN LOS NUEVOS QUE SE QUIEREN REEMPLAZAR EN UN ANIME
+    public void pasarNuevosDatos (Anime nuevo, Anime actual){
             actual.setNombre(nuevo.getNombre());
-
-        if(nuevo.getCapitulos()!=null && nuevo.getCapitulos()>=0)
             actual.setCapitulos(nuevo.getCapitulos());
-
-        if(nuevo.getEstado()!=null)
             actual.setEstado(nuevo.getEstado());
-
-        if(nuevo.getPrimeraEmision()!=null)
             actual.setPrimeraEmision(nuevo.getPrimeraEmision());
-
-        if(nuevo.getUltimaEmision()!=null)
             actual.setUltimaEmision(nuevo.getUltimaEmision());
-
-        if(nuevo.getEstudio()!=null)
             actual.setEstudio(nuevo.getEstudio());
-
-        if(nuevo.getCategoria()!=null)
             actual.setCategoria(nuevo.getCategoria());
     }
 
     public AnimeDTO actualizar(Long id,Anime nuevosDatosAnime){
         return animeRepository.findById(id).map(existente->{
-            actualizarDatos(nuevosDatosAnime,existente);
+            pasarNuevosDatos(nuevosDatosAnime,existente);
             validarCategoria_Estudio(existente);
             Anime actualizado = animeRepository.save(existente);
             return aDTO(actualizado);
