@@ -78,7 +78,7 @@ public class AnimeServiceTest {
         Page<Anime> animePage = new PageImpl<>(List.of(anime));
         when(animeRepository.findAll(pageable)).thenReturn(animePage);
 
-        Page<AnimeDTO> respuesta = animeService.listarTodo(pageable);
+        Page<AnimeDTO> respuesta = animeService.listarActivos(pageable);
 
         assertNotNull(respuesta);
         assertEquals(1,respuesta.getContent().size());
