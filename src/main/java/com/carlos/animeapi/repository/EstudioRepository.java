@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EstudioRepository extends JpaRepository<Estudio,Long> {
+    Page<Estudio> findAllByActivoTrue(Pageable pageable);
     Page<Estudio> findEstudioByNombreContainingIgnoreCase(String nombre, Pageable pageable);
 }
