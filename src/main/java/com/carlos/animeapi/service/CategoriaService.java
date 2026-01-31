@@ -4,59 +4,111 @@ import com.carlos.animeapi.dto.CategoriaDTO;
 import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Categoria;
 import com.carlos.animeapi.repository.CategoriaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class CategoriaService {
-    @Autowired
-    private CategoriaRepository categoriaRepository;
+
+    private final CategoriaRepository categoriaRepository;
 
 
-    private CategoriaDTO aDTO(Categoria categoria){
-        return new CategoriaDTO(
-                categoria.getId(),
-                categoria.getNombre());
-    }
-
-    public Page<CategoriaDTO> listarTodo(Pageable pageable){
+    public Page<CategoriaDTO> listarTodos(Pageable pageable) {
+        log.debug("Listando todas las categorias (incluye inactivas)");
         return categoriaRepository.findAll(pageable).map(this::aDTO);
     }
 
-    public Page<CategoriaDTO> buscarPorNombre(String nombre, Pageable pageable){
-        return categoriaRepository.findCategoriaByNombreContainingIgnoreCase(nombre, pageable).map(this::aDTO);
+
+    public Page<CategoriaDTO> listarActivos(Pageable pageable) {
+        log.debug("Listando solo categorias activas");
+        return categoriaRepository.findAllByActivoTrue(pageable).map(this::aDTO);
     }
 
 
-    public CategoriaDTO categoriaPorId(Long id){
-        return categoriaRepository.findById(id).map(this::aDTO).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ninguna categoria con ID: "+id));
+    public CategoriaDTO buscarPorId(Long id) {
+        log.debug("Buscando categoria con ID: {}", id);
+        return categoriaRepository.findById(id)
+                .map(this::aDTO)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Categoria no encontrada, ID: " + id));
     }
 
-    public CategoriaDTO crear(Categoria categoria){
-        if(categoria.getActivo()==null){
+
+    public Page<CategoriaDTO> buscarPorNombre(String nombre, Pageable pageable) {
+        log.debug("Buscando categorias con nombre: {}", nombre);
+        return categoriaRepository.findCategoriaByNombreContainingIgnoreCase(nombre, pageable)
+                .map(this::aDTO);
+    }
+
+    public CategoriaDTO crear(Categoria categoria) {
+        log.info("Creando nueva categoria: {}", categoria.getNombre());
+
+        if (categoria.getActivo() == null) {
             categoria.setActivo(true);
         }
-        categoriaRepository.save(categoria);
-        return aDTO(categoria);
+
+        Categoria guardada = categoriaRepository.save(categoria);
+        log.info("Categoria creada exitosamente con ID: {}", guardada.getId());
+
+        return aDTO(guardada);
     }
 
-    //Con el id y los datos nuevos recibidos, buscamos si existe el id y actualizamos los datos enviados
-    public CategoriaDTO actualizar(Long id,Categoria nuevosDatosCategoria){
-        return categoriaRepository.findById(id).map(encontrado->{
-            if(nuevosDatosCategoria.getNombre()!=null) encontrado.setNombre(nuevosDatosCategoria.getNombre());
-            categoriaRepository.save(encontrado);
-            return aDTO(encontrado);
-        }).orElseThrow(()->new RecursoNoEncontradoException("No existe categoria con el id: "+id));
+    public CategoriaDTO actualizar(Long id, Categoria nuevosDatos) {
+        log.info("Actualizando categoria con ID: {}", id);
+
+        return categoriaRepository.findById(id)
+                .map(existente -> {
+                    if (nuevosDatos.getNombre() != null) {
+                        existente.setNombre(nuevosDatos.getNombre());
+                    }
+
+                    Categoria actualizada = categoriaRepository.save(existente);
+
+                    return aDTO(actualizada);
+                }).orElseThrow(() -> new RecursoNoEncontradoException("No existe categoria con ID: " + id));
     }
 
-    public void eliminarCategoria(Long id){
-        Categoria encontrado = categoriaRepository.findById(id).orElseThrow(()-> new RecursoNoEncontradoException("No existe una categoria con ID: "+id));
-        encontrado.setActivo(false);
-        categoriaRepository.save(encontrado);
+    public CategoriaDTO habilitar(Long id) {
+        log.info("Habilitando categoria con ID: {}", id);
+
+        Categoria encontrada = categoriaRepository.findById(id)
+                .orElseThrow(() -> new RecursoNoEncontradoException("No existe categoria con ID: " + id));
+
+        if (encontrada.getActivo()) {
+            log.warn("Intento de habilitar categoria ya activa: {}", id);
+            throw new IllegalStateException("La categoria con ID " + id + " ya está habilitada");
+        }
+
+        encontrada.setActivo(true);
+        Categoria habilitada = categoriaRepository.save(encontrada);
+        log.info("Categoria habilitada exitosamente: {}", id);
+
+        return aDTO(habilitada);
     }
 
+    public CategoriaDTO eliminar(Long id) {
+        log.info("Eliminando (soft delete) categoria con ID: {}", id);
+
+        Categoria encontrada = categoriaRepository.findById(id)
+                .orElseThrow(() -> new RecursoNoEncontradoException("No existe categoria con ID: " + id));
+
+        encontrada.setActivo(false);
+        Categoria eliminada = categoriaRepository.save(encontrada);
+        log.info("Categoria marcada como inactiva: {}", id);
+
+        return aDTO(eliminada);
+    }
+
+    private CategoriaDTO aDTO(Categoria categoria) {
+        return new CategoriaDTO(
+                categoria.getId(),
+                categoria.getNombre()
+        );
+    }
 }
