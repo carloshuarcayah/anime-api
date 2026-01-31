@@ -20,8 +20,13 @@ public class AnimeController {
     private AnimeService animeService;
 
     @GetMapping
-    public ResponseEntity<Page<AnimeDTO>> listarAnimes(Pageable pageable){
-        return ResponseEntity.ok(animeService.listarTodo(pageable));
+    public ResponseEntity<Page<AnimeDTO>> listarActivos(Pageable pageable){
+        return ResponseEntity.ok(animeService.listarActivos(pageable));
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<Page<AnimeDTO>> listarTodos(Pageable pageable){
+        return ResponseEntity.ok(animeService.listarTodos(pageable));
     }
 
     @GetMapping("/{id}")
@@ -36,7 +41,7 @@ public class AnimeController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<AnimeDTO> crearAnime(@RequestBody @Valid Anime anime){
-        return  ResponseEntity.ok(animeService.guardar(anime));
+        return  ResponseEntity.ok(animeService.crear(anime));
     }
 
     @PutMapping("/{id}")
@@ -44,9 +49,14 @@ public class AnimeController {
         return ResponseEntity.ok(animeService.actualizar(id,anime));
     }
 
+    @PutMapping("/habilitar/{id}")
+    public ResponseEntity<AnimeDTO> habilitarAnime(@PathVariable Long id){
+        return ResponseEntity.ok(animeService.habilitar(id));
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void eliminaAnime(@PathVariable Long id){
-        animeService.eliminar(id);
+    public ResponseEntity<AnimeDTO> eliminaAnime(@PathVariable Long id){
+        return ResponseEntity.ok(animeService.eliminar(id));
     }
 }

@@ -20,11 +20,10 @@ import static io.swagger.v3.oas.annotations.media.Schema.AccessMode.READ_ONLY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLRestriction("activo=true")
 public class Anime implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(accessMode = READ_ONLY)//PARA OCULTAR este atributo en el Swagger
+    @Schema(accessMode = READ_ONLY)//PARA OCULTAR en el Swagger
     private Long id;
 
     @Column(nullable = false)

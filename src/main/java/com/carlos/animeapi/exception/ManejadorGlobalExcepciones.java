@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,23 @@ public class ManejadorGlobalExcepciones {
         Map<String, String> respuesta = new HashMap<>();
         respuesta.put("mensaje", ex.getMessage());
         return new ResponseEntity<>(respuesta, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> manejarArgumentoIlegal(IllegalArgumentException ex) {
+        Map<String, String> respuesta = new HashMap<>();
+        respuesta.put("error", "Solicitud incorrecta");
+        respuesta.put("mensaje", ex.getMessage());
+        return new ResponseEntity<>(respuesta, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Object> NoResourceFoundException(NoResourceFoundException ex){
+        Map<String,String> respuesta = new HashMap<>();
+
+        respuesta.put("error","Ruta incorrecta");
+        respuesta.put("mensaje","La ruta '"+ex.getResourcePath()+"' no existe para el metodo "+ex.getHttpMethod());
+        return new ResponseEntity<>(respuesta, HttpStatus.NOT_FOUND);
     }
 
     //PARA CUALQUIER OTRO ERROR

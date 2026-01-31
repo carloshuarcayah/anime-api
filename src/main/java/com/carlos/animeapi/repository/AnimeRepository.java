@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnimeRepository extends JpaRepository<Anime, Long> {
+    Page<Anime> findAllByActivoTrue(Pageable pageable);
     Page<Anime> findAnimeByNombreContainingIgnoreCase(String nombre, Pageable pageable);
 }
