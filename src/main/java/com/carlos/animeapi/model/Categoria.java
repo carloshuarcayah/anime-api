@@ -15,7 +15,6 @@ import static io.swagger.v3.oas.annotations.media.Schema.AccessMode.READ_ONLY;
 @Entity
 @Table(name = "categorias")
 @Data
-@SQLRestriction("activo=true")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

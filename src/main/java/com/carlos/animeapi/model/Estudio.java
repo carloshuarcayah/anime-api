@@ -21,7 +21,6 @@ import static io.swagger.v3.oas.annotations.media.Schema.AccessMode.READ_ONLY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLRestriction("activo=true")
 public class Estudio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
