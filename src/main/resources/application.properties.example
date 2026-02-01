@@ -1,14 +1,27 @@
 spring.application.name=anime-api
 
-#Conexion a la base de datos
-spring.datasource.url=jdbc:postgresql://localhost:5432/TU_BASE_DE_DATOS
-spring.datasource.username=TU_USUARIO
-spring.datasource.password=TU_CONTRASEÑA
+##===========POSTGRES==============================
+##Conexion a la base de datos
+#spring.datasource.url=jdbc:postgresql://localhost:5432/TU_BASE_DE_DATOS
+#spring.datasource.username=TU_USUARIO
+#spring.datasource.password=TU_CONTRASEÑA
+#spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+#spring.jpa.hibernate.ddl-auto=update
 
-#Actualizacion de tablas
-spring.jpa.hibernate.ddl-auto=update
+#=============H2=====================
+spring.datasource.url=jdbc:h2:mem:animedb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.jpa.hibernate.ddl-auto=create-drop
 
-#configuraciion del jpa
+
+#configuracion del jpa
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+#Cargar datos iniciales
+spring.sql.init.mode=always
+spring.jpa.defer-datasource-initialization=true
