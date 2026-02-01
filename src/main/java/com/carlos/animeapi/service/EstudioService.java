@@ -32,30 +32,32 @@ public class EstudioService {
         return estudioRepository.findById(id).map(this::aDTO).orElseThrow(()->new RecursoNoEncontradoException("No se encontro ningun estudio con ID: "+id));
     }
 
-    public EstudioDTO crear(Estudio estudio){
-        if(estudio.getActivo()==null){
-            estudio.setActivo(true);
-        }
+    public EstudioDTO crear(EstudioDTO dto){
+        Estudio estudio = Estudio.builder()
+                .nombre(dto.nombre())
+                .pais(dto.pais())
+                .fechaCreacion(dto.fechaCreacion())
+                .build();
+
         return aDTO(estudioRepository.save(estudio));
     }
 
-    public EstudioDTO actualizar(Long id, Estudio nuevosDatosEstudio){
+    public EstudioDTO actualizar(Long id, EstudioDTO nuevosDatosEstudio){
         return estudioRepository.findById(id).map(encontrado->{
-            encontrado.setNombre(nuevosDatosEstudio.getNombre());
-            encontrado.setPais(nuevosDatosEstudio.getPais());
-            encontrado.setFechaCreacion(nuevosDatosEstudio.getFechaCreacion());
+            encontrado.setNombre(nuevosDatosEstudio.nombre());
+            encontrado.setPais(nuevosDatosEstudio.pais());
+            encontrado.setFechaCreacion(nuevosDatosEstudio.fechaCreacion());
 
             return aDTO(estudioRepository.save(encontrado));
         }).orElseThrow(()->new RecursoNoEncontradoException("ID no encontrado: No existe un estudio con ID-"+id));
     }
 
-    public EstudioDTO eliminar(Long id){
+    public void eliminar(Long id){
         Estudio estudio = estudioRepository.findById(id).orElseThrow(()->new RecursoNoEncontradoException("NO existe estudio con ID: "+id));
-        if(!estudio.getActivo()){
-            return aDTO(estudio);
+        if(estudio.getActivo()){
+            estudio.setActivo(false);
+            estudioRepository.save(estudio);
         }
-        estudio.setActivo(false);
-        return aDTO(estudioRepository.save(estudio));
     }
 
     public EstudioDTO habilitar(Long id){

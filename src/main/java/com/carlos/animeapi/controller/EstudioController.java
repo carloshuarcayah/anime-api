@@ -40,22 +40,22 @@ public class EstudioController {
     }
 
     @PostMapping
-    public ResponseEntity<EstudioDTO>  crear(@RequestBody @Valid Estudio estudio){
+    public ResponseEntity<EstudioDTO> crear(@RequestBody @Valid EstudioDTO estudio){
         return ResponseEntity.ok(estudioService.crear(estudio));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EstudioDTO> actualizar(@PathVariable Long id,@RequestBody @Valid Estudio estudio){
+    public ResponseEntity<EstudioDTO> actualizar(@PathVariable Long id,@RequestBody @Valid EstudioDTO estudio){
         return ResponseEntity.ok(estudioService.actualizar(id,estudio));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<EstudioDTO>  eliminar(@PathVariable Long id){
-        return ResponseEntity.ok(estudioService.eliminar(id));
+    public void eliminar(@PathVariable Long id){
+        estudioService.eliminar(id);
     }
 
-    @PutMapping("/{id}")
-    public EstudioDTO habilitar(@PathVariable Long id){
-        return estudioService.habilitar(id);
+    @PutMapping("/{id}/habilitar")
+    public ResponseEntity<EstudioDTO>  habilitar(@PathVariable Long id){
+        return ResponseEntity.ok(estudioService.habilitar(id));
     }
 }
