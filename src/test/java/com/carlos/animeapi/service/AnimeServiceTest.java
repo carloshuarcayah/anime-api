@@ -75,7 +75,7 @@ public class AnimeServiceTest {
         //CONFIGURACIÓN DE LA PAGINACIÓN: NUMERO DE PAGINA Y TAMAÑO
         Pageable pageable = PageRequest.of(0,10);
         Page<Anime> animePage = new PageImpl<>(List.of(anime));
-        when(animeRepository.findAll(pageable)).thenReturn(animePage);
+        when(animeRepository.findAllByActivoTrue(pageable)).thenReturn(animePage);
 
         Page<AnimeResponseDTO> respuesta = animeService.listarActivos(pageable);
 
