@@ -63,14 +63,13 @@ public class CategoriaService {
         Categoria encontrada = categoriaRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("No existe categoria con ID: " + id));
 
+        // SI ESTA Habilitado
         if (encontrada.getActivo()) {
-            throw new IllegalStateException("La categoria con ID " + id + " ya está habilitada");
+            return aDTO(encontrada);
         }
-
+        //EN CASO NO ESTE HABILITADO
         encontrada.setActivo(true);
-        Categoria habilitada = categoriaRepository.save(encontrada);
-
-        return aDTO(habilitada);
+        return aDTO(categoriaRepository.save(encontrada));
     }
 
     public void eliminar(Long id) {
@@ -78,7 +77,7 @@ public class CategoriaService {
                 .orElseThrow(() -> new RecursoNoEncontradoException("No existe categoria con ID: " + id));
 
         encontrada.setActivo(false);
-        Categoria eliminada = categoriaRepository.save(encontrada);
+        categoriaRepository.save(encontrada);
     }
 
     private CategoriaDTO aDTO(Categoria categoria) {
