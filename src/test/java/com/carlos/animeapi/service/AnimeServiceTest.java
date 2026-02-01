@@ -1,14 +1,13 @@
 package com.carlos.animeapi.service;
 
-import com.carlos.animeapi.dto.AnimeDTO;
+import com.carlos.animeapi.dto.AnimeRequestDTO;
+import com.carlos.animeapi.dto.AnimeResponseDTO;
 import com.carlos.animeapi.exception.RecursoNoEncontradoException;
 import com.carlos.animeapi.model.Anime;
 import com.carlos.animeapi.model.Categoria;
 import com.carlos.animeapi.model.EstadoAnime;
 import com.carlos.animeapi.model.Estudio;
 import com.carlos.animeapi.repository.AnimeRepository;
-import com.carlos.animeapi.repository.CategoriaRepository;
-import com.carlos.animeapi.repository.EstudioRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -78,12 +77,12 @@ public class AnimeServiceTest {
         Page<Anime> animePage = new PageImpl<>(List.of(anime));
         when(animeRepository.findAll(pageable)).thenReturn(animePage);
 
-        Page<AnimeDTO> respuesta = animeService.listarActivos(pageable);
+        Page<AnimeResponseDTO> respuesta = animeService.listarActivos(pageable);
 
         assertNotNull(respuesta);
         assertEquals(1,respuesta.getContent().size());
         assertEquals("Naruto",respuesta.getContent().getFirst().nombre());
-        assertEquals("Finalizado",respuesta.getContent().getFirst().estado());
+        assertEquals("Finalizado",respuesta.getContent().getFirst().estado().getEstado());
 
         verify(animeRepository, times(1)).findAll(pageable);
     }
@@ -123,11 +122,11 @@ public class AnimeServiceTest {
 
         when(animeRepository.findById(idValido)).thenReturn(Optional.of(anime));
 
-        AnimeDTO animeDTO=animeService.buscarPorId(idValido);
+        AnimeResponseDTO animeResponseDTO =animeService.buscarPorId(idValido);
 
-        assertThat(animeDTO).isNotNull();
-        assertThat(animeDTO.id()).isEqualTo(idValido);
-        assertThat(animeDTO.estado()).isEqualTo(EstadoAnime.FINALIZADO.getEstado());
+        assertThat(animeResponseDTO).isNotNull();
+        assertThat(animeResponseDTO.id()).isEqualTo(idValido);
+        assertThat(animeResponseDTO.estado().getEstado()).isEqualTo(EstadoAnime.FINALIZADO.getEstado());
     }
 
     @Test
