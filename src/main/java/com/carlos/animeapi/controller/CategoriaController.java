@@ -39,18 +39,18 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaDTO> crear(@RequestBody @Valid Categoria categoria){
+    public ResponseEntity<CategoriaDTO> crear(@RequestBody @Valid CategoriaDTO categoria){
         return ResponseEntity.ok(categoriaService.crear(categoria));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriaDTO> actualizar(@PathVariable long id, @RequestBody @Valid Categoria categoria){
+    public ResponseEntity<CategoriaDTO> actualizar(@PathVariable long id, @RequestBody @Valid CategoriaDTO categoria){
         return ResponseEntity.ok(categoriaService.actualizar(id,categoria));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CategoriaDTO> eliminar(@PathVariable Long id){
-        return ResponseEntity.ok(categoriaService.eliminar(id));
+    public void eliminar(@PathVariable Long id){
+        categoriaService.eliminar(id);
     }
 
     @PutMapping("/{id}/habilitar")
