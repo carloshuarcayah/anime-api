@@ -1,12 +1,6 @@
 # Anime API - Catálogo
 Esta es una API RESTful diseñada para la gestión integral de animes, sus categorías y sus estudios de animación.
 
-# Características
-* **Arquitectura en capas:** Separación clara de responsabilidades en Modelos, Repositorios, Servicios y Controladores.
-* **Manejo global de excepciones:** Errores centralizados mediante `@ControllerAdvice`, garantizando respuestas en formato JSON claras.
-* **Borrado lógico (Soft Delete):** Implementación de integridad de datos donde la información no se elimina físicamente de la base de datos, sino que se marca como inactiva.
-* **Integración de Swagger:** Documentación interactiva para probar los endpoints en tiempo real.
-
 # Tecnologías utilizadas
 * **Java 21:** Lenguaje usado.
 * **Spring Boot 3:** Framework usado para el desarrollo.
