@@ -8,12 +8,13 @@ Esta es una API RESTful diseñada para la gestión integral de animes, sus categ
 * **Integración de Swagger:** Documentación interactiva para probar los endpoints en tiempo real.
 
 # Tecnologías utilizadas
-* **Java 21:** Lenguaje de programación principal (JDK 21).
-* **Spring Boot 3:** Framework base para el desarrollo.
-* **Spring Data JPA:** Abstracción para la persistencia y acceso a datos.
+* **Java 21:** Lenguaje usado.
+* **Spring Boot 3:** Framework usado para el desarrollo.
+* **Spring Data JPA:** Para la persistencia de datos.
 * **PostgreSQL:** Motor de base de datos relacional.
-* **Lombok:** Biblioteca para la reducción de código repetitivo (Boilerplate).
-* **Swagger/OpenAPI:** Herramienta para documentación y testing.
+* **H2:** Base de datos en memoria para facilitar ejecución.
+* **Lombok:** Para reducción de código repetitivo.
+* **Swagger:** Herramienta para documentación y testing.
 
 # Estructura del Proyecto
 ```text
@@ -21,9 +22,10 @@ Esta es una API RESTful diseñada para la gestión integral de animes, sus categ
     └── main
         └── java/com/...
             ├── controller/   # Gestión de Endpoints y validación de entrada (@Valid).
+            ├── dto/          # Data Transfer Objects
             ├── service/      # Capa de lógica de negocio y validaciones.
             ├── repository/   # Interfaz de acceso a la base de datos (JPA).
-            ├── model/        # Entidades del dominio y Enums.
+            ├── model/        # Entidades del dominio y Enum.
             ├── exception/    # Manejador de excepciones personalizadas.
             └── AnimeApiApplication.java
 ```
@@ -32,19 +34,24 @@ Esta es una API RESTful diseñada para la gestión integral de animes, sus categ
 
 ## Prerrequisitos
 1. **JDK 21** o superior
-2. **Maven** instalado
-3. **PostgreSQL** instalado y corriendo
+2. **Maven 3.6+** instalado
+3. **Git** instalado 
+4. **(Opcional) PostgreSQL** instalado y corriendo
 
 ## Cómo ejecutar
 
 1. **Clonar el repositorio:**
 ```bash
 git clone https://github.com/carloshuarcayah/anime-api.git
+cd anime-api
 ```
-
-2. **Configurar la base de datos:**
-   * Crea una base de datos en PostgreSQL
+2. **H2 como base de datos:**
    * Renombra el archivo `src/main/resources/application.properties.example` a `application.properties`
+
+3. **Si prefieres usar PostgreSQL**
+   * Crea una base de datos en PostgreSQL con el nombre que desees.
+   * Renombra el archivo `src/main/resources/application.properties.example` a `application.properties`
+   * Descomenta las propiedades de postgre y elimina la configuración H2.
    * Actualiza las credenciales en `application.properties`:
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/TU_BASE_DE_DATOS
@@ -52,7 +59,7 @@ spring.datasource.username=TU_USUARIO
 spring.datasource.password=TU_CONTRASEÑA
 ```
 
-3. **Ejecutar la aplicación:**
+4. **Ejecutar la aplicación:**
 
    **Opción 1: Desde un IDE**
    * Abre el proyecto en tu IDE (IntelliJ IDEA, Eclipse, VS Code, etc.)
@@ -72,4 +79,4 @@ Una vez iniciada la aplicación, puedes acceder a la documentación y probar la 
 
 ---
 
-**Autor:** Yo -  (Estudiante) Desarrollador Backend en formación
+**Autor:** Yo - (Estudiante) Desarrollador Backend en formación
