@@ -84,7 +84,7 @@ public class AnimeServiceTest {
         assertEquals("Naruto",respuesta.getContent().getFirst().nombre());
         assertEquals("Finalizado",respuesta.getContent().getFirst().estado().getEstado());
 
-        verify(animeRepository, times(1)).findAll(pageable);
+        verify(animeRepository, times(1)).findAllByActivoTrue(pageable);
     }
 
     @Test
